@@ -1,0 +1,23 @@
+@import "@vars/pads";
+@import "@vars/colors";
+@import "@vars/screens";
+
+.header {
+    display: none;
+    width: 100%;
+
+    padding: $pad4;
+
+    background: $light-gray;
+
+    .headerContent {
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+
+@media all and (max-width: $screen_sm) {
+    .header {
+        display: block;
+    }
+}
