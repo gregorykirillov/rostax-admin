@@ -8,6 +8,7 @@ module.exports = {
             '@src': resolvePath('./src'),
             '@components': resolvePath('./src/components'),
             '@parts': resolvePath('./src/parts'),
+            '@pages': resolvePath('./src/pages'),
             '@vars': resolvePath('./src/common'),
         }
     },

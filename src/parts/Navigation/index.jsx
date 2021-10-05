@@ -3,7 +3,6 @@ import classnames from 'classnames';
 import {Link} from 'react-router-dom';
 
 import {CloseIcon} from './components';
-import {Header} from '@parts';
 
 import {AdminContext} from '@components';
 
@@ -18,7 +17,6 @@ const Navigation = () => {
             styles.navContainer,
             {[styles.opened]: isNavVisible},
         )}>
-            <Header />
             <nav className={styles.nav}>
                 <CloseIcon className={styles.closeIcon} />
 

@@ -10,7 +10,7 @@ const BurgerMenu = ({
 }) => {
     const {isNavVisible, setNavVisible} = useContext(AdminContext);
 
-    const handleMenuClick = () => isNavVisible ? (console.log('Закрываем'), setNavVisible(false)) :  (console.log('Открываем'), setNavVisible(true));
+    const handleMenuClick = () => isNavVisible ? setNavVisible(false) :  setNavVisible(true);
 
     return (
         <button
