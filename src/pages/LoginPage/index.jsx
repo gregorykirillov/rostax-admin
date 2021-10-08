@@ -2,25 +2,24 @@ import React, {useContext, useEffect, useState} from 'react';
 import {AdminContext} from '@components';
 import {useHistory} from 'react-router-dom';
 import {Button, Input, Space} from 'antd';
-
+import {request} from '@util/request';
 
 function index() {
     const {isAuthenticated, setAuthenticated} = useContext(AdminContext);
-    
+
     const [isLogging, setLogging] = useState(false);
     const [password, setPassword] = useState('');
 
     const history = useHistory();
 
-    const handleLogin = () => {
+    const login = async () => {
         setLogging(true);
+    
+        let res = await request('/login', 'POST', {password});
         
-        setTimeout(() => {
-            setLogging(false);
-            password == '1'
-                ? (setAuthenticated(true))
-                : (alert('Wrong password'));
-        }, 700);
+        res.ok && setAuthenticated(true);
+
+        setLogging(false);
     };
 
     useEffect(() => {
@@ -32,7 +31,7 @@ function index() {
         <form
             onSubmit={e => {
                 e.preventDefault();
-                handleLogin(e);
+                login();
             }}
         >
             <h1>Страница авторизации</h1>

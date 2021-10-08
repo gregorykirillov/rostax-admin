@@ -10,6 +10,7 @@ module.exports = {
             '@parts': resolvePath('./src/parts'),
             '@pages': resolvePath('./src/pages'),
             '@vars': resolvePath('./src/common'),
+            '@util': resolvePath('./src/util'),
         }
     },
 };
