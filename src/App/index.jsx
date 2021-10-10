@@ -1,15 +1,19 @@
 import React, {useState} from 'react';
 import {Switch, Redirect, Route} from 'react-router-dom';
+
 import {AdminContext} from '@components';
 import {Navigation, Header} from '@parts';
-import AuthenticatedRoute from './AuthenticatedRoute';
 import {CategoryPages, LoginPage} from '@pages';
+import {request} from '@util/request';
+import AuthenticatedRoute from './AuthenticatedRoute';
 
 import styles from './styles.module.scss';
 
 const App = () => {
     const [isNavVisible, setNavVisible] = useState(false);
     const [isAuthenticated, setAuthenticated] = useState(false);
+
+    request('/ping', {credentials: 'include'}).then(data => data.ok && setAuthenticated(true));
 
     return (
         <AdminContext.Provider value={{isNavVisible, setNavVisible, isAuthenticated, setAuthenticated}}>

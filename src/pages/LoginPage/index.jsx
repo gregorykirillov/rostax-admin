@@ -1,7 +1,9 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {AdminContext} from '@components';
 import {useHistory} from 'react-router-dom';
+
 import {Button, Input, Space} from 'antd';
+
+import {AdminContext} from '@components';
 import {request} from '@util/request';
 
 function index() {
@@ -15,8 +17,8 @@ function index() {
     const login = async () => {
         setLogging(true);
     
-        let res = await request('/login', 'POST', {password});
-        
+        let res = await request('/login', {password}, 'POST');
+
         res.ok && setAuthenticated(true);
 
         setLogging(false);
