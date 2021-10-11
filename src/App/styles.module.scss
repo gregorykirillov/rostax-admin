@@ -1,0 +1,9 @@
+@import "@vars/pads";
+
+.appContainer {
+    display: flex;
+}
+
+.contentContainer {
+    padding: $pad4;
+}
