@@ -8,9 +8,9 @@ const AuthenticatedRoute = props => {
     const {isAuthenticated} = useContext(AdminContext);
     const history = useHistory();
 
-    useEffect(() => {
-        if (!isAuthenticated) history.push(getLoginPagePath());
-    }, [history, isAuthenticated]);
+    useEffect(() => !isAuthenticated && history.push(getLoginPagePath()), [history, isAuthenticated]);
+
+    if (!isAuthenticated) return <Route />;
 
     return <Route {...props} />;
 };

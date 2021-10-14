@@ -2,8 +2,10 @@
 
 .appContainer {
     display: flex;
+    justify-content: center;
 }
 
 .contentContainer {
     padding: $pad4;
+    flex: 1 1 auto;
 }

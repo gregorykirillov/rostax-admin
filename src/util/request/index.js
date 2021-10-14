@@ -2,7 +2,7 @@ import {SERVER_URL} from '@src/settings';
 
 const DEFAULT_ERROR = {error: 'Неожиданная ошибка на сервере', ok: false, status: 500};
 
-export const request = async (url, options, method) => {
+const request = async (url, options, method) => {
     let ok = false;
     let body, status;
 
@@ -22,20 +22,15 @@ export const request = async (url, options, method) => {
 
         ok = res.ok;
         status = res.status;
-        
-        body = method == 'POST' && await res.json();
+        try {
+            body = await res.json();
+            body = body?.data;
+        }
+        catch {
+            true;
+        }
     } catch(e) {
         return DEFAULT_ERROR;
-    }
-    
-    if (ok === false) {
-        const {error} = body;
-
-        return {
-            error: error,
-            ok,
-            status,
-        };
     }
 
     return {
@@ -44,3 +39,5 @@ export const request = async (url, options, method) => {
         status,
     };
 };
+
+export default request;
