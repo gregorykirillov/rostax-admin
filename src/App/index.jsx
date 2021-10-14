@@ -4,7 +4,7 @@ import {Switch, Redirect, Route} from 'react-router-dom';
 import {AdminContext, Preloader} from '@components';
 import {Navigation, Header} from '@parts';
 import {CategoryPages, LoginPage} from '@pages';
-import {request} from '@util';
+import request from '@util/request';
 import AuthenticatedRoute from './AuthenticatedRoute';
 
 import styles from './styles.module.scss';

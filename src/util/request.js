@@ -1,10 +1,9 @@
 import {SERVER_URL} from '@src/settings';
 
-const DEFAULT_ERROR = {error: 'Неожиданная ошибка на сервере', ok: false, status: 500};
+const DEFAULT_ERROR = {error: 'Неожиданная ошибка на сервере', status: 500};
 
 const request = async (url, options, method) => {
-    let ok = false;
-    let body, status;
+    let body;
 
     try {
         const res = await fetch(SERVER_URL + url, 
@@ -20,8 +19,6 @@ const request = async (url, options, method) => {
                 : options
         );
 
-        ok = res.ok;
-        status = res.status;
         try {
             body = await res.json();
             body = body?.data;
@@ -29,15 +26,31 @@ const request = async (url, options, method) => {
         catch {
             true;
         }
+
+        return {
+            data: body,
+            ok: res.ok,
+            status: res.status,
+        };
+
     } catch(e) {
         return DEFAULT_ERROR;
     }
-
-    return {
-        data: body,
-        ok,
-        status,
-    };
 };
 
 export default request;
+
+// export const request = async (
+//     url,
+//     options,
+// ) => {
+//     const res = await fetch(url, options);
+
+//     const body = await res.json().catch(() => ({}));
+
+//     return {
+//         data: body,
+//         ok: res.ok,
+//         status: res.status,
+//     };
+// };
