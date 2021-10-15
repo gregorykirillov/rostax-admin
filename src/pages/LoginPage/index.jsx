@@ -4,7 +4,7 @@ import {useHistory} from 'react-router-dom';
 import {Button, Input, Space} from 'antd';
 
 import {AdminContext} from '@components';
-import {request} from '@util/request';
+import request from '@util/request';
 
 function index() {
     const {isAuthenticated, setAuthenticated} = useContext(AdminContext);
