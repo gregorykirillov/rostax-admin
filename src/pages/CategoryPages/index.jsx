@@ -1,7 +1,7 @@
 import React from 'react';
 import {Switch, Route} from 'react-router-dom';
 
-import showPage from './show';
+import showPage from './list';
 
 const ProductCategory = () => (
     <Switch>
