@@ -10,13 +10,13 @@ const CATEGORY_FIELDS = [
     {name: 'Имя', field: 'name'},
 ];
 
-const showPage = () => {
+const listPage = () => {
     const [categories, setCategories] = useState([]);
 
     const getCategories = async() => {
         let {data} = await request('/category/all');
         
-        data.categories && setCategories(data?.categories);
+        data.categories && setCategories(data.categories);
     };
 
     const history = useHistory();
@@ -50,4 +50,4 @@ const showPage = () => {
     );
 };
 
-export default showPage;
+export default listPage;
