@@ -6,7 +6,7 @@ const request = async (url, options, method) => {
     let body;
 
     try {
-        const res = await fetch(SERVER_URL + url, 
+        const res = await fetch(SERVER_URL + url,
             method == 'POST'
                 ? {
                     credentials: 'include',
@@ -23,10 +23,9 @@ const request = async (url, options, method) => {
             body = await res.json();
             body = body?.data;
         }
-        catch {
+        catch(e) {
             true;
         }
-
         return {
             data: body,
             ok: res.ok,
@@ -39,18 +38,3 @@ const request = async (url, options, method) => {
 };
 
 export default request;
-
-// export const request = async (
-//     url,
-//     options,
-// ) => {
-//     const res = await fetch(url, options);
-
-//     const body = await res.json().catch(() => ({}));
-
-//     return {
-//         data: body,
-//         ok: res.ok,
-//         status: res.status,
-//     };
-// };

@@ -1,7 +1,8 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
+import {useMessages} from '@hooks/useMessages';
 
-import {Button, Input, Space} from 'antd';
+import {Button, Input, message, Space} from 'antd';
 
 import {AdminContext} from '@components';
 import request from '@util/request';
@@ -13,13 +14,25 @@ function index() {
     const [password, setPassword] = useState('');
 
     const history = useHistory();
+    
+    const messages = useMessages();
 
     const login = async () => {
         setLogging(true);
     
         let res = await request('/login', {password}, 'POST');
 
-        res.ok && setAuthenticated(true);
+        switch(res.status) {
+        case 200:
+            setAuthenticated(true);
+            message.success('Успешная авторизация');
+            break;
+        case 400:
+            messages.error('Неверный пароль');
+            break;
+        default:
+            messages.error(`Неизвестная ошибка. Код ошибки: ${res.status}`);
+        }
 
         setLogging(false);
     };
