@@ -4,6 +4,7 @@ import {Typography, Button} from 'antd';
 import {AdminForm, AdminInput} from '@admin-lib/components';
 import {useMessages} from '@hooks/useMessages';
 
+import {Space} from '@uikit';
 import styles from '../../styles.module.scss';
 
 
@@ -50,10 +51,12 @@ const createPage = () => {
                 type="file"
                 name="image"
             />
+
+            <Space size='sm'/>
+
             <Button
                 type="primary"
                 htmlType="submit"
-                className={styles.submit}
             >
                 {'Создать категорию'}
             </Button>

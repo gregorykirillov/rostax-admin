@@ -71,7 +71,7 @@ const editPage = () => {
                 name="image"
             />
 
-            <Space />
+            <Space size='sm' />
 
             <Button
                 type="primary"
