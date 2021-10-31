@@ -3,8 +3,9 @@ import {Switch, Redirect, Route} from 'react-router-dom';
 
 import {AdminContext, Preloader} from '@components';
 import {Navigation, Header} from '@parts';
-import {CategoryPages, LoginPage} from '@pages';
-import request from '@util/request';
+import {LoginPage, CategoryPages, ProductPages} from '@pages';
+import {request} from '@util/request';
+import {getApiRequestUrl} from '@util/getApiRequestUrl';
 import AuthenticatedRoute from './AuthenticatedRoute';
 
 import styles from './styles.module.scss';
@@ -16,7 +17,7 @@ const App = () => {
     const [initialized, setInitialized] = useState(false);
 
     const init = async() => {
-        await request('/ping', {credentials: 'include'})
+        await request(getApiRequestUrl('/ping'), {credentials: 'include'})
             .then(data => {
                 setInitialized(true);
                 data.ok && (setAuthenticated(true));
@@ -40,6 +41,11 @@ const App = () => {
                         <AuthenticatedRoute
                             path="/categories"
                             component={CategoryPages}
+                        />
+
+                        <AuthenticatedRoute
+                            path="/products"
+                            component={ProductPages}
                         />
 
                         <Route path="/login"

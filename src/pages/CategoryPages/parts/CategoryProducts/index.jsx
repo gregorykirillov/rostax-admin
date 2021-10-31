@@ -5,6 +5,7 @@ import {useAdminData} from '@admin-lib/hooks/useAdminData';
 import {Preloader} from '@components';
 import {DataTable, ErrorMessage} from '@uikit';
 import {getProductShowPath} from '@pages/ProductPages/routes';
+import {getApiRequestUrl} from '@util/getApiRequestUrl';
 
 
 const TABLE_FIELDS = [
@@ -14,7 +15,7 @@ const TABLE_FIELDS = [
 
 const CategoryProducts = () => {
     const parentId = +useParams().categoryId;
-    const {data, error} = useAdminData('/product/all');
+    const {data, error} = useAdminData(getApiRequestUrl('/product/all'));
 
     const history = useHistory();
 

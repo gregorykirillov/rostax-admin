@@ -1,6 +1,8 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import {useHistory} from 'react-router-dom';
-import request from '@util/request';
+import {request} from '@util/request';
+import {getApiRequestUrl} from '@util/getApiRequestUrl';
+import {getProductsCategoryCreatePath, getProductsCategoryShowPath} from '../routes';
 import {Button, Space} from 'antd';
 
 import {DataTable} from '@uikit';
@@ -14,7 +16,7 @@ const listPage = () => {
     const [categories, setCategories] = useState([]);
 
     const getCategories = async() => {
-        let {data} = await request('/category/all');
+        let {data} = await request(getApiRequestUrl('/category/all'));
         
         data.categories && setCategories(data.categories);
     };
@@ -22,7 +24,7 @@ const listPage = () => {
     const history = useHistory();
 
     const rowSelectHandler = useCallback(
-        (id) => history.push(`/categories/${id}/show`),
+        (id) => history.push(getProductsCategoryShowPath(id)),
         [history],
     );
 
@@ -36,7 +38,7 @@ const listPage = () => {
             <h1>Категории продуктов</h1>
             <Space direction="vertical">
                 <Button
-                    onClick={() => history.push('/categories/create')}
+                    onClick={() => history.push(getProductsCategoryCreatePath())}
                 >
                     Добавить
                 </Button>

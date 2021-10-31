@@ -10,6 +10,7 @@ import {filterRequestParams} from './helpers/filterRequestParams';
 import {getHeadersFromDataType} from './helpers/getHeadersFromDataType';
 import {getFormErrors} from './helpers/getFormErrors';
 import {getFormDataFromForm} from './helpers/getFormDataFromForm';
+import {getApiRequestUrl} from '@util/getApiRequestUrl';
 
 
 const AdminForm = ({
@@ -36,46 +37,49 @@ const AdminForm = ({
     const prepareBodyForSending = body => {
         const enhancedBody = enhanceDataBeforeSend ? enhanceDataBeforeSend(body) : body;
         const jsonBody = dataType === 'json' ? formDataToJson(enhancedBody) : enhancedBody;
-
+        
         return jsonBody;
     };
 
     const performRequest = async data => {
         const body = prepareBodyForSending(data);
         const headers = getHeadersFromDataType(dataType);
+        let newBody = {};
 
         const filteredParams = filterRequestParams(requestParams);
 
         setFormDisabled(true);
+
+        if (body?.keys?.()) for (let key of body.keys()) {
+            if (body.get(key)?.type?.includes('image')) {
+                let tempBody = new FormData();
+                tempBody.append('', body.get(key));
+                const res = await request(
+                    getApiRequestUrl('/image'),
+                    {
+                        method: 'POST',
+                        headers,
+                        body: tempBody,
+
+                        ...filteredParams,
+                    },
+                );
+                newBody[key] = res?.data?.fileName;
+            } else newBody[key] = body.get(key);
+        }
         
-        let res = await request(
-            action[0],
+        const res = await request(
+            action,
             {
                 method,
-                headers,
-                credentials: 'include',
-                body,
+                headers: headers || {'Content-Type': 'application/json'},
+                body: JSON.stringify(newBody),
 
                 ...filteredParams,
             },
         );
 
-        if (action[1]) {
-            const {fileName: image} = res.data;
-            const name = body.get('name');
-
-            res = await request(
-                action[1],
-                {
-                    name,
-                    image,
-                },
-                method,
-            );
-        }
-
         setFormDisabled(false);
-
 
         if (!res.ok) {
             onError && onError(res.error);

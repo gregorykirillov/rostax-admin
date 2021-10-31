@@ -5,7 +5,8 @@ import {useMessages} from '@hooks/useMessages';
 import {Button, Input, message, Space} from 'antd';
 
 import {AdminContext} from '@components';
-import request from '@util/request';
+import {request} from '@util/request';
+import {getApiRequestUrl} from '@util/getApiRequestUrl';
 
 function index() {
     const {isAuthenticated, setAuthenticated} = useContext(AdminContext);
@@ -20,7 +21,14 @@ function index() {
     const login = async () => {
         setLogging(true);
     
-        let res = await request('/login', {password}, 'POST');
+        let res = await request(getApiRequestUrl('/login'), {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json;' },
+            credentials: 'include',
+            body: JSON.stringify({
+                password,
+            })
+        });
 
         switch(res.status) {
         case 200:

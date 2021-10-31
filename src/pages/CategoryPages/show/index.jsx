@@ -11,6 +11,7 @@ import {useMessages} from '@hooks/useMessages';
 
 import {CategoryProducts} from '../parts';
 import {getProductsCategoryEditPath, getProductsCategoryListPath} from '../routes';
+import {getApiRequestUrl} from '@util/getApiRequestUrl';
 
 
 const showPage = () => {
@@ -19,7 +20,7 @@ const showPage = () => {
     const messages = useMessages();
 
     const {categoryId} = useParams();
-    const {error, data} = useAdminData(`/category/${categoryId}`);
+    const {error, data} = useAdminData(getApiRequestUrl(`/category/${categoryId}`));
 
     if (error) return <ErrorMessage>{error}</ErrorMessage>;
     if (!data) return <Preloader />;
@@ -46,7 +47,7 @@ const showPage = () => {
                 </Button>
 
                 <DeleteBtn
-                    url={`/category/${categoryId}`}
+                    url={getApiRequestUrl(`/category/${categoryId}`)}
                     confirmationMessage={'Вы точно хотите удалить категорию?'}
 
                     handleSuccess={() => {

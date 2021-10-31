@@ -10,7 +10,7 @@ import styles from '@parts/Navigation/styles.module.scss';
 
 
 const Navigation = () => {
-    const {isNavVisible} = useContext(AdminContext);
+    const {isNavVisible, setNavVisible} = useContext(AdminContext);
 
     return (
         <div className={classnames(
@@ -20,7 +20,7 @@ const Navigation = () => {
             <nav className={styles.nav}>
                 <CloseIcon className={styles.closeIcon} />
 
-                <Link to="/categories" className={styles.link}>Категории продуктов</Link>
+                <Link to="/categories" onClick={() => setNavVisible(false)} className={styles.link}>Категории продуктов</Link>
             </nav>
         </div>
     );

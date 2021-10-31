@@ -7,6 +7,7 @@ import {useAdminData} from '@admin-lib/hooks/useAdminData';
 import {Preloader} from '@components';
 import {ErrorMessage, Space} from '@uikit';
 import {useMessages} from '@hooks/useMessages';
+import {getApiRequestUrl} from '@util/getApiRequestUrl';
 
 import {getProductsCategoryListPath} from '../routes';
 
@@ -27,8 +28,8 @@ const editPage = () => {
     const history = useHistory();
     const messages = useMessages();
     const {categoryId} = useParams();
-
-    const {error, data} = useAdminData(`/category/${categoryId}`);
+    
+    const {error, data} = useAdminData(getApiRequestUrl(`/category/${categoryId}`));
 
     const handleSuccess = useCallback(
         () => {
@@ -47,7 +48,7 @@ const editPage = () => {
 
     return (
         <AdminForm
-            action={['/image', `/category/${categoryId}`]}
+            action={getApiRequestUrl(`/category/${categoryId}`)}
             method="POST"
             dataType="multipart"
             validators={CATEGORY_FORM_VALIDATORS}

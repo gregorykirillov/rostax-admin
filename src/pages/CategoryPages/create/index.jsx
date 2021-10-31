@@ -2,6 +2,7 @@ import React, {useCallback} from 'react';
 import {Typography, Button} from 'antd';
 
 import {AdminForm, AdminInput} from '@admin-lib/components';
+import {getApiRequestUrl} from '@util/getApiRequestUrl';
 import {useMessages} from '@hooks/useMessages';
 
 import {Space} from '@uikit';
@@ -29,16 +30,16 @@ const createPage = () => {
 
     return (
         <AdminForm
-            action={['/image', '/category']}
+            action={getApiRequestUrl('/category')}
             method="POST"
             dataType="multipart"
-            redirectTo={'/categories'}
+            redirectTo={'/categories'} // Добавить getProductsCategoryListPath
             validators={CATEGORY_FORM_VALIDATORS}
             onError={messages.error}
             className={styles.adminForm}
             onSuccess={handleSuccess}
         >
-            <Typography >Создание категории продуктов</Typography>
+            <Typography>Создание категории продуктов</Typography>
 
             <AdminInput
                 labelText="Имя"
