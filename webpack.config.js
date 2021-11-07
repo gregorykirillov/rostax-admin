@@ -1,8 +1,8 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 
-const resolvePath = p => path.resolve(__dirname, p);
-const {DefinePlugin} = require('webpack');
+const resolvePath = (p) => path.resolve(__dirname, p);
+const { DefinePlugin } = require('webpack');
 
 module.exports = {
     output: {
@@ -85,9 +85,8 @@ module.exports = {
             template: './src/index.html',
         }),
         new DefinePlugin({
-            REACT_APP_CLIENT_URL: "'http://127.0.0.1'",
-            REACT_APP_SERVER_URL: "'http://127.0.0.1:3000'",
-        })
+            REACT_APP_CLIENT_URL: '\'http://127.0.0.1\'',
+            REACT_APP_SERVER_URL: '\'http://127.0.0.1:5000\'',
+        }),
     ],
 };
-
