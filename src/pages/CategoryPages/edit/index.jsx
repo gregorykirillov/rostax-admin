@@ -2,12 +2,12 @@ import React, {useCallback, useEffect} from 'react';
 import {useHistory, useParams} from 'react-router-dom';
 import {Button, Typography} from 'antd';
 
-import {AdminForm, AdminInput} from '@admin-lib/components';
-import {useAdminData} from '@admin-lib/hooks/useAdminData';
-import {Preloader} from '@components';
-import {ErrorMessage, Space} from '@uikit';
-import {useMessages} from '@hooks/useMessages';
-import {getApiRequestUrl} from '@util/getApiRequestUrl';
+import {AdminForm, AdminInput} from '@/admin-lib/components';
+import {useAdminData} from '@/admin-lib/hooks/useAdminData';
+import {Preloader} from '@/components';
+import {ErrorMessage, Space} from '@/uikit';
+import {useMessages} from '@/hooks/useMessages';
+import {getApiRequestUrl} from '@/util/getApiRequestUrl';
 
 import {getProductsCategoryListPath} from '../routes';
 

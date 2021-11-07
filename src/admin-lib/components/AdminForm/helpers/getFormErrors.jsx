@@ -1,6 +1,6 @@
 import {isEmpty} from 'ramda';
 
-import {ErrorRecord} from '@admin-lib/util/errorRecord';
+import {ErrorRecord} from '@/admin-lib/util/errorRecord';
 
 const DEFAULT_MESSAGES = {
     REQUIRED: 'Поле обязательно',

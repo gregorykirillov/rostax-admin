@@ -8,6 +8,10 @@
         "eslint:recommended",
         "plugin:react/recommended"
     ],
+    "globals": {
+        "REACT_APP_CLIENT_URL": true,
+        "REACT_APP_SERVER_URL": true,
+    },
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true

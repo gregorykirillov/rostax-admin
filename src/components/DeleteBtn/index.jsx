@@ -1,8 +1,8 @@
 import React from 'react';
 import {Button, Modal, Space} from 'antd';
 
-import {AdminForm} from '@admin-lib/components';
-import {useModalState} from '@hooks/useModalState';
+import {AdminForm} from '@/admin-lib/components';
+import {useModalState} from '@/hooks/useModalState';
 
 
 const DeleteBtn = ({

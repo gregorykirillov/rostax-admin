@@ -1,5 +1,5 @@
 import {stringify as stringifyQs} from 'query-string';
-import {SERVER_URL} from '@src/settings';
+import {SERVER_URL} from '@/settings';
 
 
 export const getApiRequestUrl = (path, params={}) =>

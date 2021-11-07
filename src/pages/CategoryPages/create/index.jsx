@@ -1,11 +1,11 @@
 import React, {useCallback} from 'react';
 import {Typography, Button} from 'antd';
 
-import {AdminForm, AdminInput} from '@admin-lib/components';
-import {getApiRequestUrl} from '@util/getApiRequestUrl';
-import {useMessages} from '@hooks/useMessages';
+import {AdminForm, AdminInput} from '@/admin-lib/components';
+import {getApiRequestUrl} from '@/util/getApiRequestUrl';
+import {useMessages} from '@/hooks/useMessages';
 
-import {Space} from '@uikit';
+import {Space} from '@/uikit';
 import styles from '../../styles.module.scss';
 
 

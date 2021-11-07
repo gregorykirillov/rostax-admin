@@ -2,9 +2,9 @@ import React from 'react';
 import {Input} from 'antd';
 import classnames from 'classnames';
 
-import {useUniqueId} from '@admin-lib/hooks/useUniqueId';
-import {useValidationErrors} from '@admin-lib/hooks/useValidationErrors';
-import {useFieldValidators} from '@admin-lib/hooks/useFieldValidators';
+import {useUniqueId} from '@/admin-lib/hooks/useUniqueId';
+import {useValidationErrors} from '@/admin-lib/hooks/useValidationErrors';
+import {useFieldValidators} from '@/admin-lib/hooks/useFieldValidators';
 
 import styles from './styles.module.scss';
 

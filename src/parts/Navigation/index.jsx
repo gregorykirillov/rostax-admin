@@ -4,9 +4,9 @@ import {Link} from 'react-router-dom';
 
 import {CloseIcon} from './components';
 
-import {AdminContext} from '@components';
+import {AdminContext} from '@/components';
 
-import styles from '@parts/Navigation/styles.module.scss';
+import styles from '@/parts/Navigation/styles.module.scss';
 
 
 const Navigation = () => {

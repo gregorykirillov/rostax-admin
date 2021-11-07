@@ -1,11 +1,11 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import {useHistory} from 'react-router-dom';
-import {request} from '@util/request';
-import {getApiRequestUrl} from '@util/getApiRequestUrl';
+import {request} from '@/util/request';
+import {getApiRequestUrl} from '@/util/getApiRequestUrl';
 import {getProductsCategoryCreatePath, getProductsCategoryShowPath} from '../routes';
 import {Button, Space} from 'antd';
 
-import {DataTable} from '@uikit';
+import {DataTable} from '@/uikit';
 
 const CATEGORY_FIELDS = [
     {name: 'Идентификатор', field: 'id'},

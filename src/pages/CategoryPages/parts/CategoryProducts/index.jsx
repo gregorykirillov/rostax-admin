@@ -1,11 +1,11 @@
 import React, {useMemo} from 'react';
 import {useHistory, useParams} from 'react-router-dom';
 
-import {useAdminData} from '@admin-lib/hooks/useAdminData';
-import {Preloader} from '@components';
-import {DataTable, ErrorMessage} from '@uikit';
-import {getProductShowPath} from '@pages/ProductPages/routes';
-import {getApiRequestUrl} from '@util/getApiRequestUrl';
+import {useAdminData} from '@/admin-lib/hooks/useAdminData';
+import {Preloader} from '@/components';
+import {DataTable, ErrorMessage} from '@/uikit';
+import {getProductShowPath} from '@/pages/ProductPages/routes';
+import {getApiRequestUrl} from '@/util/getApiRequestUrl';
 
 
 const TABLE_FIELDS = [

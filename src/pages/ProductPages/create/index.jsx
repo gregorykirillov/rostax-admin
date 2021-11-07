@@ -1,15 +1,15 @@
-import React, {useCallback, /*useMemo*/} from 'react';
+import React, {useCallback} from 'react';
 import {Button, Typography} from 'antd';
 import {Redirect} from 'react-router-dom';
 
-import {AdminForm, AdminInput, AdminTextArea} from '@admin-lib/components';
-import {useAdminData} from '@admin-lib/hooks/useAdminData';
-import {useQuery} from '@hooks/useQuery';
-import {Preloader} from '@components';
-import {ErrorMessage, Space} from '@uikit';
-import {getApiRequestUrl} from '@util/getApiRequestUrl';
-import {getProductsCategoryListPath} from '@pages/CategoryPages/routes';
-import {useMessages} from '@hooks/useMessages';
+import {AdminForm, AdminInput, AdminTextArea} from '@/admin-lib/components';
+import {useAdminData} from '@/admin-lib/hooks/useAdminData';
+import {useQuery} from '@/hooks/useQuery';
+import {Preloader} from '@/components';
+import {ErrorMessage, Space} from '@/uikit';
+import {getApiRequestUrl} from '@/util/getApiRequestUrl';
+import {getProductsCategoryListPath} from '@/pages/CategoryPages/routes';
+import {useMessages} from '@/hooks/useMessages';
 
 
 const PRODUCT_CREATE_VALIDATORS = {
@@ -27,7 +27,8 @@ const ProductCreate = () => {
     const messages = useMessages();
 
     const handleSuccess = useCallback(
-        () => messages.success(''),
+        // TODO: suka
+        () => messages.success(`Продукт ${2} создан`),
         [messages],
     );
 

@@ -3,7 +3,7 @@ import React, {useContext} from 'react';
 import classnames from 'classnames';
 
 import {CloseCircleOutlined} from '@ant-design/icons';
-import {AdminContext} from '@components';
+import {AdminContext} from '@/components';
 
 const CloseIcon = ({
     className

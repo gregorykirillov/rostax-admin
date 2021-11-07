@@ -2,13 +2,13 @@ import React from 'react';
 import {Link, useHistory, useParams} from 'react-router-dom';
 import {Typography, Space, Button} from 'antd';
 
-import {useAdminData} from '@admin-lib/hooks/useAdminData';
-import {DeleteBtn, Preloader} from '@components';
-import {DescriptionTable} from '@uikit';
-import {getApiRequestUrl} from '@util/getApiRequestUrl';
-import {getImageUrl} from '@util/getImageUrl';
-import {getProductsCategoryShowPath} from '@pages/CategoryPages/routes';
-import {useMessages} from '@hooks/useMessages';
+import {useAdminData} from '@/admin-lib/hooks/useAdminData';
+import {DeleteBtn, Preloader} from '@/components';
+import {DescriptionTable} from '@/uikit';
+import {getApiRequestUrl} from '@/util/getApiRequestUrl';
+import {getImageUrl} from '@/util/getImageUrl';
+import {getProductsCategoryShowPath} from '@/pages/CategoryPages/routes';
+import {useMessages} from '@/hooks/useMessages';
 
 import {getProductEditPath} from '../routes';
 

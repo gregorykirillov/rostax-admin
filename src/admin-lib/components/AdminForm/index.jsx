@@ -1,16 +1,16 @@
 import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom';
 
-import {formDataToJson} from '@admin-lib/util/formDataToJson';
-import {WithFormContext} from '@admin-lib/contexts/FormContext';
-import {useFormErrors} from '@admin-lib/hooks/useFormErrors';
-import request from '@util/request';
+import {formDataToJson} from '@/admin-lib/util/formDataToJson';
+import {WithFormContext} from '@/admin-lib/contexts/FormContext';
+import {useFormErrors} from '@/admin-lib/hooks/useFormErrors';
+import request from '@/util/request';
 
 import {filterRequestParams} from './helpers/filterRequestParams';
 import {getHeadersFromDataType} from './helpers/getHeadersFromDataType';
 import {getFormErrors} from './helpers/getFormErrors';
 import {getFormDataFromForm} from './helpers/getFormDataFromForm';
-import {getApiRequestUrl} from '@util/getApiRequestUrl';
+import {getApiRequestUrl} from '@/util/getApiRequestUrl';
 
 
 const AdminForm = ({

@@ -16,15 +16,8 @@ module.exports = {
     resolve: {
         modules: [path.join(__dirname, 'src'), 'node_modules'],
         alias: {
-            '@src': resolvePath('./src'),
-            '@components': resolvePath('./src/components'),
-            '@parts': resolvePath('./src/parts'),
-            '@pages': resolvePath('./src/pages'),
+            '@': resolvePath('./src'),
             '@vars': resolvePath('./src/common'),
-            '@util': resolvePath('./src/util'),
-            '@uikit': resolvePath('./src/uikit'),
-            '@admin-lib': resolvePath('./src/admin-lib'),
-            '@hooks': resolvePath('./src/hooks'),
         },
         extensions: ['.js', '.jsx', '.css', '.scss'],
     },
@@ -85,7 +78,7 @@ module.exports = {
             template: './src/index.html',
         }),
         new DefinePlugin({
-            REACT_APP_CLIENT_URL: '\'http://127.0.0.1\'',
+            REACT_APP_CLIENT_URL: '\'http://127.0.0.1:3000\'',
             REACT_APP_SERVER_URL: '\'http://127.0.0.1:5000\'',
         }),
     ],

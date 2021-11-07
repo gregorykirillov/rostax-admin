@@ -2,16 +2,16 @@ import React from 'react';
 import {useHistory, useLocation, useParams} from 'react-router-dom';
 import {Button, Typography, Space as SpaceContainer} from 'antd';
 
-import {useAdminData} from '@admin-lib/hooks/useAdminData';
-import {Preloader, DeleteBtn} from '@components';
-import {DescriptionTable, ErrorMessage, Space} from '@uikit';
-import {getImageUrl} from '@util/getImageUrl';
-import {getProductCreatePath} from '@pages/ProductPages/routes';
-import {useMessages} from '@hooks/useMessages';
+import {useAdminData} from '@/admin-lib/hooks/useAdminData';
+import {Preloader, DeleteBtn} from '@/components';
+import {DescriptionTable, ErrorMessage, Space} from '@/uikit';
+import {getImageUrl} from '@/util/getImageUrl';
+import {getProductCreatePath} from '@/pages/ProductPages/routes';
+import {useMessages} from '@/hooks/useMessages';
 
 import {CategoryProducts} from '../parts';
 import {getProductsCategoryEditPath, getProductsCategoryListPath} from '../routes';
-import {getApiRequestUrl} from '@util/getApiRequestUrl';
+import {getApiRequestUrl} from '@/util/getApiRequestUrl';
 
 
 const showPage = () => {

@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import classnames from 'classnames';
 
-import {AdminContext} from '@components';
+import {AdminContext} from '@/components';
 
 import styles from './styles.module.scss';
 

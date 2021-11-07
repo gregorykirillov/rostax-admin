@@ -2,11 +2,11 @@ import React from 'react';
 import {useParams} from 'react-router-dom';
 import {Button} from 'antd';
 
-import {AdminForm, AdminInput, AdminTextArea} from '@admin-lib/components';
-import {getApiRequestUrl} from '@util/getApiRequestUrl';
-import {useAdminData} from '@admin-lib/hooks/useAdminData';
-import {Preloader} from '@components';
-import {ErrorMessage} from '@uikit';
+import {AdminForm, AdminInput, AdminTextArea} from '@/admin-lib/components';
+import {getApiRequestUrl} from '@/util/getApiRequestUrl';
+import {useAdminData} from '@/admin-lib/hooks/useAdminData';
+import {Preloader} from '@/components';
+import {ErrorMessage} from '@/uikit';
 
 import {getProductShowPath} from '../routes';
 

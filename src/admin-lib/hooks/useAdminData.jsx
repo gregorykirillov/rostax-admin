@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import request from '@util/request';
+import request from '@/util/request';
 
 
 export const useAdminData = (

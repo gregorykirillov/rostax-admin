@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {Switch, Redirect, Route} from 'react-router-dom';
 
-import {AdminContext, Preloader} from '@components';
-import {Navigation, Header} from '@parts';
-import {LoginPage, CategoryPages, ProductPages} from '@pages';
-import {request} from '@util/request';
-import {getApiRequestUrl} from '@util/getApiRequestUrl';
+import {AdminContext, Preloader} from '@/components';
+import {Navigation, Header} from '@/parts';
+import {LoginPage, CategoryPages, ProductPages} from '@/pages';
+import {request} from '@/util/request';
+import {getApiRequestUrl} from '@/util/getApiRequestUrl';
 import AuthenticatedRoute from './AuthenticatedRoute';
 
 import styles from './styles.module.scss';
