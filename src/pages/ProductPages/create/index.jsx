@@ -38,13 +38,14 @@ const ProductCreate = () => {
 
     return (
         <AdminForm
-            action={getApiRequestUrl(`/product/${categoryId}`)}
+            action={getApiRequestUrl(`/product`)}
             method="POST"
             dataType="multipart"
             redirectTo={redirectTo}
 
             onError={messages.error}
             onSuccess={handleSuccess}
+            defaultValues={{categoryId}}
 
             validators={PRODUCT_CREATE_VALIDATORS}
         >

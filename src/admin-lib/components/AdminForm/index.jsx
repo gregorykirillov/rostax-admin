@@ -26,6 +26,7 @@ const AdminForm = ({
     onError,
     onSubmit,
     enhanceDataBeforeSend,
+    defaultValues,
 
     requestParams={},
     validators,
@@ -44,7 +45,7 @@ const AdminForm = ({
     const performRequest = async data => {
         const body = prepareBodyForSending(data);
         const headers = getHeadersFromDataType(dataType);
-        let newBody = {};
+        let newBody = {...defaultValues};
 
         const filteredParams = filterRequestParams(requestParams);
 
@@ -74,6 +75,7 @@ const AdminForm = ({
                 method,
                 headers: headers || {'Content-Type': 'application/json'},
                 body: JSON.stringify(newBody),
+                credentials: 'include',
 
                 ...filteredParams,
             },

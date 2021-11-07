@@ -85,8 +85,8 @@ module.exports = {
             template: './src/index.html',
         }),
         new DefinePlugin({
-            REACT_APP_CLIENT_URL: "'http://127.0.0.1:3000'",
-            REACT_APP_SERVER_URL: "'http://127.0.0.1:5000'",
+            REACT_APP_CLIENT_URL: "'http://127.0.0.1'",
+            REACT_APP_SERVER_URL: "'http://127.0.0.1:3000'",
         })
     ],
 };

@@ -14,16 +14,6 @@ import {getProductsCategoryListPath} from '../routes';
 import styles from '../../styles.module.scss';
 
 
-const CATEGORY_FORM_VALIDATORS = {
-    name: {
-        required: true,
-    },
-    image: {
-        required: true,
-    },
-};
-
-
 const editPage = () => {
     const history = useHistory();
     const messages = useMessages();
@@ -51,7 +41,6 @@ const editPage = () => {
             action={getApiRequestUrl(`/category/${categoryId}`)}
             method="POST"
             dataType="multipart"
-            validators={CATEGORY_FORM_VALIDATORS}
             onError={messages.error}
             className={styles.adminForm}
 
