@@ -10,8 +10,6 @@ import {filterRequestParams} from './helpers/filterRequestParams';
 import {getHeadersFromDataType} from './helpers/getHeadersFromDataType';
 import {getFormErrors} from './helpers/getFormErrors';
 import {getFormDataFromForm} from './helpers/getFormDataFromForm';
-import {getApiRequestUrl} from '@/util/getApiRequestUrl';
-
 
 const AdminForm = ({
     action,
@@ -26,7 +24,6 @@ const AdminForm = ({
     onError,
     onSubmit,
     enhanceDataBeforeSend,
-    defaultValues,
 
     requestParams={},
     validators,
@@ -44,37 +41,18 @@ const AdminForm = ({
 
     const performRequest = async data => {
         const body = prepareBodyForSending(data);
-        const headers = getHeadersFromDataType(dataType);
-        let newBody = {...defaultValues};
+        const innerHeaders = getHeadersFromDataType(dataType);
 
         const filteredParams = filterRequestParams(requestParams);
 
         setFormDisabled(true);
-
-        if (body?.keys?.()) for (let key of body.keys()) {
-            if (body.get(key)?.type?.includes('image')) {
-                let tempBody = new FormData();
-                tempBody.append('', body.get(key));
-                const res = await request(
-                    getApiRequestUrl('/image'),
-                    {
-                        method: 'POST',
-                        headers,
-                        body: tempBody,
-
-                        ...filteredParams,
-                    },
-                );
-                newBody[key] = res?.data?.fileName;
-            } else newBody[key] = body.get(key);
-        }
         
         const res = await request(
             action,
             {
                 method,
-                headers: headers || {'Content-Type': 'application/json'},
-                body: JSON.stringify(newBody),
+                headers: {...innerHeaders, ...filteredParams.headers},
+                body,
                 credentials: 'include',
 
                 ...filteredParams,
@@ -86,7 +64,7 @@ const AdminForm = ({
         if (!res.ok) {
             onError && onError(res.error);
         } else {
-            onSuccess && onSuccess();
+            onSuccess && onSuccess(res.data);
             redirectTo && history.replace(redirectTo);
         }
     };

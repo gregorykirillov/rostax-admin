@@ -23,7 +23,7 @@ function index() {
     
         let res = await request(getApiRequestUrl('/login'), {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json;' },
+            headers: {'Content-Type': 'application/json;'},
             credentials: 'include',
             body: JSON.stringify({
                 password,

@@ -28,6 +28,7 @@ InputErrors.displayName = 'InputErrors';
 
 
 export const AdminInput = ({
+    $ref,
     name,
     labelText,
 
@@ -51,19 +52,22 @@ export const AdminInput = ({
                 {validators?.required && <span className={styles.asteriks}>*</span>}
             </label>
 
-            <Input
-                {...inputProps}
-                className={classnames(
-                    className,
-                    styles.input,
-                    {
-                        [styles.errored]: !!errors,
-                    },
-                )}
-                id={id}
-                name={name}
-            />
-
+            <div>
+                <input
+                    {...inputProps}
+                    className={classnames(
+                        className,
+                        styles.input,
+                        {
+                            [styles.errored]: !!errors,
+                        },
+                    )}
+                    id={id}
+                    name={name}
+                    ref={$ref}
+                />
+            </div>
+            
             <InputErrors errors={errors} />
         </div>
     );

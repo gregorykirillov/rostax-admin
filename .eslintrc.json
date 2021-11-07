@@ -2,7 +2,8 @@
     "env": {
         "browser": true,
         "es6": true,
-        "node": true
+        "node": true,
+        "jest": true
     },
     "extends": [
         "eslint:recommended",
@@ -10,7 +11,7 @@
     ],
     "globals": {
         "REACT_APP_CLIENT_URL": true,
-        "REACT_APP_SERVER_URL": true,
+        "REACT_APP_SERVER_URL": true
     },
     "parserOptions": {
         "ecmaFeatures": {
@@ -41,6 +42,7 @@
         ],
         "react/prop-types": [
             "off"
-        ]
+        ],
+        "object-curly-spacing": ["error", "never"]
     }
 }

@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
+import {unstable_batchedUpdates} from 'react-dom';
 import {Switch, Redirect, Route} from 'react-router-dom';
 
 import {AdminContext, Preloader} from '@/components';
@@ -16,19 +17,28 @@ const App = () => {
     const [isAuthenticated, setAuthenticated] = useState(false);
     const [initialized, setInitialized] = useState(false);
 
-    const init = async() => {
-        await request(getApiRequestUrl('/ping'), {credentials: 'include'})
-            .then(data => {
-                setInitialized(true);
-                data.ok && (setAuthenticated(true));
-            });
-    };
-    useEffect(() => init(), []);
+    useEffect(() => {
+        const init = () => 
+            request(getApiRequestUrl('/ping'), {credentials: 'include'})
+                .then(data => {
+                    unstable_batchedUpdates(() => {
+                        setInitialized(true);
+                        data.ok && (setAuthenticated(true));
+                    });
+                });
+
+        init();
+    }, []);
+
+    const adminInfo = useMemo(
+        () => ({isNavVisible, setNavVisible, isAuthenticated, setAuthenticated, initialized}),
+        [isNavVisible, setNavVisible, isAuthenticated, setAuthenticated, initialized]
+    );
 
     if (!initialized) return <Preloader />;
 
     return (
-        <AdminContext.Provider value={{isNavVisible, setNavVisible, isAuthenticated, setAuthenticated, initialized, setInitialized}}>
+        <AdminContext.Provider value={adminInfo}>
             <Header />
 
             <div className={styles.appContainer}>

@@ -13,7 +13,7 @@ export const request = async (
         ok = res.ok;
         status = res.status;
 
-        body = await res.json()
+        body = await res.json();
     } catch(e) {
         return DEFAULT_ERROR;
     }

@@ -1,5 +1,3 @@
-
-
 export const formDataToJson = data => {
     const result = {};
 

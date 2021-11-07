@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {Button, Typography} from 'antd';
 import {Redirect} from 'react-router-dom';
 
@@ -7,6 +7,7 @@ import {useAdminData} from '@/admin-lib/hooks/useAdminData';
 import {useQuery} from '@/hooks/useQuery';
 import {Preloader} from '@/components';
 import {ErrorMessage, Space} from '@/uikit';
+import {useLoadFile} from '@/hooks/useLoadFile';
 import {getApiRequestUrl} from '@/util/getApiRequestUrl';
 import {getProductsCategoryListPath} from '@/pages/CategoryPages/routes';
 import {useMessages} from '@/hooks/useMessages';
@@ -21,32 +22,51 @@ const PRODUCT_CREATE_VALIDATORS = {
 };
 
 const ProductCreate = () => {
-    const {categoryId, redirectTo} = useQuery();
-    const {error, data} = useAdminData(getApiRequestUrl(`/category/${categoryId}`));
-
     const messages = useMessages();
 
+    const {categoryId, redirectTo} = useQuery();
+    const {error, data} = useAdminData(getApiRequestUrl(`/category/${categoryId}`));
+    
+    const {fileRef: picFileRef, name: pictureName, loading: isPicLoading, load: loadPic, error: picError} = useLoadFile();
+    const {fileRef: certFileRef, name: certName, loading: isCertLoading, load: loadCert, error: certError} = useLoadFile();
+    
+    useEffect(() => {
+        picError && messages.error('Не удалось загрузить картинку');
+    }, [picError]);
+    useEffect(() => {
+        certError && messages.error('Не удалось загрузить сертификат');
+    }, [certError]);
+
     const handleSuccess = useCallback(
-        // TODO: suka
-        () => messages.success(`Продукт ${2} создан`),
+        ({product}) => messages.success(`Продукт ${product.name} создан`),
         [messages],
     );
+
+    const enhanceData = body => {
+        body.set('categoryId', categoryId);
+        body.set('image', pictureName);
+        body.set('certificate', certName);
+
+        return body;
+    };
 
     if (!categoryId) return <Redirect to={getProductsCategoryListPath()} />;
 
     if (error) return <ErrorMessage>{error}</ErrorMessage>;
     if (!data) return <Preloader />;
 
+    const isLoading = isPicLoading || isCertLoading;
+
     return (
         <AdminForm
-            action={getApiRequestUrl(`/product`)}
+            action={getApiRequestUrl('/product')}
             method="POST"
-            dataType="multipart"
+            dataType="json"
             redirectTo={redirectTo}
 
             onError={messages.error}
             onSuccess={handleSuccess}
-            defaultValues={{categoryId}}
+            enhanceDataBeforeSend={enhanceData}
 
             validators={PRODUCT_CREATE_VALIDATORS}
         >
@@ -61,12 +81,16 @@ const ProductCreate = () => {
                 labelText="Картинка"
                 name="image"
                 type="file"
+                $ref={picFileRef}
+                onChange={e => loadPic(e.currentTarget.files[0])}
             />
 
             <AdminInput
                 labelText="Сертификат"
                 name="certificate"
                 type="file"
+                $ref={certFileRef}
+                onChange={e => loadCert(e.currentTarget.files[0])}
             />
 
             <AdminInput
@@ -89,6 +113,7 @@ const ProductCreate = () => {
             <Button
                 type="primary"
                 htmlType="submit"
+                disabled={isLoading}
             >
                 Подтвердить
             </Button>
