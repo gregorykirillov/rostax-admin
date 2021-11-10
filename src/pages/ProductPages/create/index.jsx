@@ -44,8 +44,8 @@ const ProductCreate = () => {
 
     const enhanceData = body => {
         body.set('categoryId', categoryId);
-        body.set('image', pictureName);
-        body.set('certificate', certName);
+        pictureName && body.set('image', pictureName);
+        certName && body.set('certificate', certName);
 
         return body;
     };
@@ -93,7 +93,7 @@ const ProductCreate = () => {
                 onChange={e => loadCert(e.currentTarget.files[0])}
             />
 
-            <AdminInput
+            <AdminTextArea
                 labelText="Краткое описание"
                 name="shortDescription"
             />

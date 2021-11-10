@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import {Button} from 'antd';
 
@@ -7,8 +7,10 @@ import {getApiRequestUrl} from '@/util/getApiRequestUrl';
 import {useAdminData} from '@/admin-lib/hooks/useAdminData';
 import {Preloader} from '@/components';
 import {ErrorMessage} from '@/uikit';
+import {useLoadFile} from '@/hooks/useLoadFile';
 
 import {getProductShowPath} from '../routes';
+import {useMessages} from '@/hooks/useMessages';
 
 
 const PRODUCT_UPDATE_VALIDATORS = {
@@ -18,22 +20,52 @@ const PRODUCT_UPDATE_VALIDATORS = {
 };
 
 const ProductEdit = () => {
+    const messages = useMessages();
     const {productId} = useParams();
 
     const {data, error} = useAdminData(getApiRequestUrl(`/product/${productId}`));
+    
+    const {fileRef: picFileRef, name: pictureName, loading: isPicLoading, load: loadPic, error: picError} = useLoadFile();
+    const {fileRef: certFileRef, name: certName, loading: isCertLoading, load: loadCert, error: certError} = useLoadFile();
+    
+    useEffect(() => {
+        picError && messages.error('Не удалось загрузить картинку');
+    }, [picError]);
+    useEffect(() => {
+        certError && messages.error('Не удалось загрузить сертификат');
+    }, [certError]);
+
+    const handleSuccess = useCallback(
+        (data) => messages.success(`Продукт ${data} отредактрован`),
+        [messages],
+    );
+
+    const enhanceData = body => {
+        pictureName && body.set('image', pictureName);
+        certName && body.set('certificate', certName);
+
+        return body;
+    };
 
     if (error) return <ErrorMessage>{error}</ErrorMessage>;
     if (!data) return <Preloader />;
+
+    const isLoading = isPicLoading || isCertLoading;
 
     const {product} = data;
 
     return (
         <AdminForm
             action={getApiRequestUrl(`/product/${productId}`)}
-            dataType="multipart"
             method="PUT"
-            validators={PRODUCT_UPDATE_VALIDATORS}
+            dataType="json"
             redirectTo={getProductShowPath(product.id)}
+
+            onError={messages.error}
+            onSuccess={handleSuccess}
+            enhanceDataBeforeSend={enhanceData}
+
+            validators={PRODUCT_UPDATE_VALIDATORS}
         >
             <AdminInput
                 labelText="Имя"
@@ -45,12 +77,16 @@ const ProductEdit = () => {
                 labelText="Картинка"
                 name="image"
                 type="file"
+                $ref={picFileRef}
+                onChange={e => loadPic(e.currentTarget.files[0])}
             />
 
             <AdminInput
                 labelText="Сертификат"
                 name="certificate"
                 type="file"
+                $ref={certFileRef}
+                onChange={e => loadCert(e.currentTarget.files[0])}
             />
 
             <AdminTextArea
@@ -75,6 +111,7 @@ const ProductEdit = () => {
             <Button
                 type="primary"
                 htmlType="submit"
+                disabled={isLoading}
             >
                 Подтвердить
             </Button>

@@ -3,11 +3,12 @@ import {useHistory, useParams} from 'react-router-dom';
 import {Button, Typography} from 'antd';
 
 import {AdminForm, AdminInput} from '@/admin-lib/components';
+import {getApiRequestUrl} from '@/util/getApiRequestUrl';
 import {useAdminData} from '@/admin-lib/hooks/useAdminData';
 import {Preloader} from '@/components';
 import {ErrorMessage, Space} from '@/uikit';
 import {useMessages} from '@/hooks/useMessages';
-import {getApiRequestUrl} from '@/util/getApiRequestUrl';
+import {useLoadFile} from '@/hooks/useLoadFile';
 
 import {getProductsCategoryListPath} from '../routes';
 
@@ -19,7 +20,13 @@ const editPage = () => {
     const messages = useMessages();
     const {categoryId} = useParams();
     
+    const {fileRef: picFileRef, name: pictureName, loading: isPicLoading, load: loadPic, error: picError} = useLoadFile();
+    
     const {error, data} = useAdminData(getApiRequestUrl(`/category/${categoryId}`));
+    
+    useEffect(() => {
+        picError && messages.error('Не удалось загрузить картинку');
+    }, [picError]);
 
     const handleSuccess = useCallback(
         () => {
@@ -29,27 +36,33 @@ const editPage = () => {
         [messages, history],
     );
 
-    useEffect(() => {
-        error && messages.error(error);
-    }, [error, messages]);
+    const enhanceData = body => {
+        pictureName && body.set('image', pictureName);
+
+        return body;
+    };
+
 
     if (error) return <ErrorMessage>{error}</ErrorMessage>;
     if (!data) return <Preloader />;
+
+    const {category} = data;
 
     return (
         <AdminForm
             action={getApiRequestUrl(`/category/${categoryId}`)}
             method="POST"
-            dataType="multipart"
-            onError={messages.error}
-            className={styles.adminForm}
+            dataType="json"
 
+            onError={messages.error}
             onSuccess={handleSuccess}
+            enhanceDataBeforeSend={enhanceData}
+            className={styles.adminForm}
         >
             <Typography>Редактирование категории продуктов</Typography>
 
             <AdminInput
-                defaultValue={data.name}
+                defaultValue={category.name}
                 labelText="Имя"
                 type="text"
                 name="name"
@@ -57,8 +70,10 @@ const editPage = () => {
 
             <AdminInput
                 labelText="Картинка"
-                type="file"
                 name="image"
+                type="file"
+                $ref={picFileRef}
+                onChange={e => loadPic(e.currentTarget.files[0])}
             />
 
             <Space size='sm' />
@@ -66,6 +81,7 @@ const editPage = () => {
             <Button
                 type="primary"
                 htmlType="submit"
+                disabled={isPicLoading}
             >
                 {'Сохранить'}
             </Button>
