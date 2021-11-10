@@ -6,7 +6,7 @@ import {AdminForm, AdminInput, AdminTextArea} from '@/admin-lib/components';
 import {getApiRequestUrl} from '@/util/getApiRequestUrl';
 import {useAdminData} from '@/admin-lib/hooks/useAdminData';
 import {Preloader} from '@/components';
-import {ErrorMessage} from '@/uikit';
+import {ErrorMessage, Space} from '@/uikit';
 import {useLoadFile} from '@/hooks/useLoadFile';
 
 import {getProductShowPath} from '../routes';
@@ -36,7 +36,7 @@ const ProductEdit = () => {
     }, [certError]);
 
     const handleSuccess = useCallback(
-        (data) => messages.success(`Продукт ${data} отредактрован`),
+        ({product}) => messages.success(`Продукт ${product.name} отредактрован`),
         [messages],
     );
 
@@ -107,6 +107,7 @@ const ProductEdit = () => {
                 defaultValue={product.price}
             />
 
+            <Space size='sm' />
 
             <Button
                 type="primary"

@@ -31,7 +31,7 @@ const showPage = () => {
                 {`Категория "${data.category.name}"`}
             </Typography.Title>
 
-            <SpaceContainer direction="horizontal">
+            <SpaceContainer direction="horizontal" wrap>
                 <Button
                     type="primary"
                     onClick={() => history.push(getProductsCategoryEditPath(data.category.id))}

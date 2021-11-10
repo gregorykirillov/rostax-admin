@@ -108,7 +108,7 @@ const ProductCreate = () => {
                 name="price"
             />
 
-            <Space />
+            <Space size='sm' />
 
             <Button
                 type="primary"

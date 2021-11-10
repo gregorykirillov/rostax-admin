@@ -7,7 +7,6 @@ import {useMessages} from '@/hooks/useMessages';
 import {useLoadFile} from '@/hooks/useLoadFile';
 
 import {Space} from '@/uikit';
-import styles from '../../styles.module.scss';
 import {getProductsCategoryListPath} from '../routes';
 
 
@@ -50,8 +49,7 @@ const createPage = () => {
             onError={messages.error}
             onSuccess={handleSuccess}
             enhanceDataBeforeSend={enhanceData}
-
-            className={styles.adminForm}
+            
             validators={CATEGORY_FORM_VALIDATORS}
         >
             <Typography>Создание категории продуктов</Typography>
