@@ -4,7 +4,7 @@ import {Switch, Redirect, Route} from 'react-router-dom';
 
 import {AdminContext, Preloader} from '@/components';
 import {Navigation, Header} from '@/parts';
-import {LoginPage, CategoryPages, ProductPages} from '@/pages';
+import {LoginPage, CategoryPages, ProductPages, ObjectPages, ObjectImagePages} from '@/pages';
 import {request} from '@/util/request';
 import {getApiRequestUrl} from '@/util/getApiRequestUrl';
 import AuthenticatedRoute from './AuthenticatedRoute';
@@ -56,6 +56,16 @@ const App = () => {
                         <AuthenticatedRoute
                             path="/products"
                             component={ProductPages}
+                        />
+
+                        <AuthenticatedRoute
+                            path="/objects"
+                            component={ObjectPages}
+                        />
+
+                        <AuthenticatedRoute
+                            path="/objectsImage"
+                            component={ObjectImagePages}
                         />
 
                         <Route path="/login"

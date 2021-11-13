@@ -6,6 +6,10 @@
         border-bottom: 1px solid $light-gray;
         cursor: pointer;
 
+        td {
+            overflow: hidden;
+        }
+
         &:hover {
             background: $light-gray;
         }

@@ -43,7 +43,7 @@ const DeleteBtn = ({
 
                     <Space>
                         <AdminForm
-                            action={[url]}
+                            action={url}
                             method="DELETE"
                             dataType="json"
 

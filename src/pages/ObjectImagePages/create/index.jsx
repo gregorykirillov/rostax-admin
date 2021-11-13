@@ -1,69 +1,65 @@
 import React, {useCallback, useEffect} from 'react';
-import {useHistory, useParams} from 'react-router-dom';
 import {Button, Typography} from 'antd';
+import {Redirect} from 'react-router-dom';
 
 import {AdminForm, AdminInput} from '@/admin-lib/components';
-import {getApiRequestUrl} from '@/util/getApiRequestUrl';
 import {useAdminData} from '@/admin-lib/hooks/useAdminData';
+import {useQuery} from '@/hooks/useQuery';
 import {Preloader} from '@/components';
 import {ErrorMessage, Space} from '@/uikit';
-import {useMessages} from '@/hooks/useMessages';
 import {useLoadFile} from '@/hooks/useLoadFile';
+import {getApiRequestUrl} from '@/util/getApiRequestUrl';
+import {getObjectImageShowPath} from '@/pages/ObjectImagePages/routes';
+import {useMessages} from '@/hooks/useMessages';
 
-import {getProductsCategoryListPath} from '../routes';
 
+const IMAGE_CREATE_VALIDATORS = {
+    image: {required: true},
+};
 
-const editPage = () => {
-    const history = useHistory();
+const ImageAdd = () => {
     const messages = useMessages();
-    const {categoryId} = useParams();
+
+    const {objectId, redirectTo} = useQuery();
+    const {error, data} = useAdminData(getApiRequestUrl(`/object/${objectId}`));
     
     const {fileRef: picFileRef, name: pictureName, loading: isPicLoading, load: loadPic, error: picError} = useLoadFile();
-    
-    const {error, data} = useAdminData(getApiRequestUrl(`/category/${categoryId}`));
     
     useEffect(() => {
         picError && messages.error('Не удалось загрузить картинку');
     }, [picError]);
 
     const handleSuccess = useCallback(
-        () => {
-            messages.success('Категория успешно отредактирована');
-            history.push(getProductsCategoryListPath());
-        },
-        [messages, history],
+        () => messages.success('Картинка добавлена'),
+        [messages],
     );
 
     const enhanceData = body => {
+        body.set('objectId', objectId);
         pictureName && body.set('image', pictureName);
 
         return body;
     };
 
+    if (!objectId) return <Redirect to={getObjectImageShowPath()} />;
 
     if (error) return <ErrorMessage>{error}</ErrorMessage>;
     if (!data) return <Preloader />;
 
-    const {category} = data;
-
     return (
         <AdminForm
-            action={getApiRequestUrl(`/category/${categoryId}`)}
+            action={getApiRequestUrl('/objectImages')}
             method="POST"
             dataType="json"
+            redirectTo={redirectTo}
 
             onError={messages.error}
             onSuccess={handleSuccess}
             enhanceDataBeforeSend={enhanceData}
-        >
-            <Typography>Редактирование категории продуктов</Typography>
 
-            <AdminInput
-                defaultValue={category.name}
-                labelText="Имя"
-                type="text"
-                name="name"
-            />
+            validators={IMAGE_CREATE_VALIDATORS}
+        >
+            <Typography>Добавление картинки для объекта #{data.object.name}</Typography>
 
             <AdminInput
                 labelText="Картинка"
@@ -80,10 +76,11 @@ const editPage = () => {
                 htmlType="submit"
                 disabled={isPicLoading}
             >
-                {'Сохранить'}
+                Подтвердить
             </Button>
         </AdminForm>
     );
 };
 
-export default editPage;
+
+export default ImageAdd;

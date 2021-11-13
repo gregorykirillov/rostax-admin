@@ -35,7 +35,7 @@ const ProductShow = () => {
                 <DeleteBtn
                     url={getApiRequestUrl(`/product/${product.id}`)}
 
-                    confirmationMessage="Вы точно хотите удалить продукт"
+                    confirmationMessage="Вы точно хотите удалить продукт?"
                     handleSuccess={() => {
                         history.push(getProductsCategoryShowPath(product.categoryId));
                         messages.success('Продукт успешно удалён');
